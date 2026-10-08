@@ -54,7 +54,7 @@ Le détail des étapes, des écrans et des feedbacks est décrit dans `applicati
 | 3 | Fiche recette | Consulter une recette enregistrée et lancer le partage |
 | 4 | Partage | Choisir un moyen d'envoi et confirmer |
 
-Un sélecteur d'ingrédients (recherche dans la liste fixe puis saisie de la quantité) s'ouvre depuis l'écran 2.
+Un sélecteur d'ingrédients (recherche dans la liste fixe puis saisie de la quantité) s'ouvre depuis l'écran 2 (écran 2b du wireframe).
 
 ## 7. Données
 
@@ -122,6 +122,10 @@ Un sélecteur d'ingrédients (recherche dans la liste fixe puis saisie de la qua
 | Critique comparative | `application/design/critique.md` |
 
 ---
+
+## Relecture préalable (par Claude, IA)
+
+Vérifications faites avant la revue croisée : cohérence entre `pitch.md`, `persona.md`, `user-flow.md`, ce brief et le wireframe ; calcul de l'exemple « Tarte au sucre » (2 691 kcal au total, 336 kcal par portion) ; chemins des livrables. Un manque a été corrigé : le sélecteur d'ingrédients est maintenant dessiné (écran 2b du wireframe). **Reste à compléter :** la ligne « Technologies » (section 10). Cette relecture ne remplace pas la revue croisée avec un binôme ci-dessous.
 
 ## Revue croisée avec un binôme (à faire avant le commit)
 

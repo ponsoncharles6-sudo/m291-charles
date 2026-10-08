@@ -1,5 +1,5 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1320 706" width="1320" height="706" font-family="Helvetica, Arial, sans-serif">
-  <rect width="1320" height="706" fill="#fafafa"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1640 706" width="1640" height="706" font-family="Helvetica, Arial, sans-serif">
+  <rect width="1640" height="706" fill="#fafafa"/>
   <text x="40" y="30" font-size="20" font-weight="bold" fill="#222">Wireframe — Ponson Cuisson</text>
   <text x="40" y="48" font-size="12" fill="#666">Flow : créer une recette, voir les calories, partager la fiche (voir user-flow.md)</text>
 
@@ -159,4 +159,45 @@
     <text x="140" y="527" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">Retour à la liste</text>
   </g>
   <text x="1000" y="668" font-size="12" fill="#444">Confirmation, puis retour à l'écran 1</text>
+
+  <!-- ============ Écran 2b : Sélecteur d'ingrédients (depuis l'écran 2) ============ -->
+  <text x="1320" y="68" font-size="14" font-weight="bold" fill="#222">2b. Sélecteur d'ingrédients</text>
+  <g transform="translate(1320,76)">
+    <rect width="280" height="560" fill="#fff" stroke="#333" stroke-width="2" stroke-dasharray="8,4"/>
+    <rect width="280" height="50" fill="#e5e5e5" stroke="#333" stroke-width="2"/>
+    <text x="16" y="31" font-size="16" font-weight="bold" fill="#222">← Ajouter un ingrédient</text>
+
+    <rect x="16" y="64" width="248" height="34" fill="#fff" stroke="#555"/>
+    <text x="26" y="86" font-size="12" fill="#888">Rechercher un ingrédient…</text>
+
+    <rect x="16" y="108" width="248" height="38" fill="#fff" stroke="#555"/>
+    <text x="26" y="131" font-size="12" fill="#222">Beurre</text>
+    <text x="254" y="131" font-size="11" fill="#555" text-anchor="end">717 kcal / 100 g</text>
+
+    <rect x="16" y="150" width="248" height="38" fill="#d9d9d9" stroke="#333" stroke-width="2"/>
+    <text x="26" y="173" font-size="12" font-weight="bold" fill="#222">Farine</text>
+    <text x="254" y="173" font-size="11" fill="#333" text-anchor="end">364 kcal / 100 g</text>
+
+    <rect x="16" y="192" width="248" height="38" fill="#fff" stroke="#555"/>
+    <text x="26" y="215" font-size="12" fill="#222">Sucre</text>
+    <text x="254" y="215" font-size="11" fill="#555" text-anchor="end">387 kcal / 100 g</text>
+
+    <rect x="16" y="234" width="248" height="38" fill="#fff" stroke="#555"/>
+    <text x="26" y="257" font-size="12" fill="#222">Crème</text>
+    <text x="254" y="257" font-size="11" fill="#555" text-anchor="end">300 kcal / 100 g</text>
+
+    <text x="140" y="298" font-size="11" fill="#888" text-anchor="middle">(aucun résultat : « Aucun ingrédient trouvé »)</text>
+
+    <rect x="0" y="322" width="280" height="238" fill="#f0f0f0" stroke="#333" stroke-width="2"/>
+    <text x="16" y="348" font-size="13" font-weight="bold" fill="#222">Farine · 364 kcal / 100 g</text>
+    <text x="16" y="372" font-size="11" fill="#555">Quantité (g)</text>
+    <rect x="16" y="378" width="150" height="38" fill="#fff" stroke="#555"/>
+    <text x="26" y="402" font-size="14" fill="#222">250 g</text>
+    <text x="180" y="402" font-size="12" font-weight="bold" fill="#222">= 910 kcal</text>
+    <text x="16" y="440" font-size="11" fill="#555">Clavier numérique ouvert</text>
+    <rect x="16" y="500" width="248" height="44" fill="#444"/>
+    <text x="140" y="527" font-size="14" font-weight="bold" fill="#fff" text-anchor="middle">Valider</text>
+  </g>
+  <text x="1320" y="668" font-size="12" fill="#444">S'ouvre depuis « + Ajouter un ingrédient » (écran 2)</text>
+  <text x="1320" y="684" font-size="12" fill="#444">« Valider » : retour à l'écran 2, totaux mis à jour</text>
 </svg>

@@ -46,9 +46,9 @@ flowchart TD
 - **Total du plat** = somme des calories de tous les ingrédients
 - **Par portion** = total du plat ÷ nombre de portions (arrondi à l'entier)
 
-## Cas limites à prévoir (version simple)
+## Cas limites à prévoir
 
-Ces cas sont à traiter dans le user flow alternatif si tu demandes le support correspondant.
+Ces cas limites sont repris dans les critères de réussite du `brief.md`.
 
 | Situation | Comportement attendu |
 |---|---|
