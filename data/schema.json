@@ -1,0 +1,142 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://github.com/ponsoncharles6-sudo/m291-charles/data/schema.json",
+  "title": "Recettes Ponson Cuisson",
+  "description": "Valide data.json et data/data-avance.json : un tableau de recettes typées. Voir data/README.md.",
+  "type": "array",
+  "minItems": 1,
+  "items": { "$ref": "#/definitions/recette" },
+
+  "definitions": {
+    "recette": {
+      "type": "object",
+      "required": [
+        "id", "titre", "commune", "prixMoyen",
+        "description", "portions", "estVegetarien", "tags", "image",
+        "ingredients", "totalKcal", "kcalParPortion"
+      ],
+      "additionalProperties": false,
+      "properties": {
+        "id": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Identifiant unique, entier positif."
+        },
+        "titre": {
+          "type": "string",
+          "minLength": 2,
+          "maxLength": 60,
+          "description": "Nom de la recette affiché dans la liste."
+        },
+        "commune": {
+          "type": "string",
+          "minLength": 2,
+          "description": "Commune romande d'origine de la spécialité ou de la fiche."
+        },
+        "description": {
+          "type": "string",
+          "minLength": 10,
+          "maxLength": 200
+        },
+        "prixMoyen": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 50,
+          "description": "Coût moyen estimé par portion, en CHF."
+        },
+        "portions": {
+          "type": "integer",
+          "minimum": 1,
+          "description": "Nombre de portions (au moins 1, voir les cas limites du user flow)."
+        },
+        "estVegetarien": { "type": "boolean" },
+        "tags": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "pattern": "^[a-z0-9-]+$" },
+          "description": "Mots-clés en minuscules, sans accent ni espace (filtres)."
+        },
+        "image": {
+          "type": "string",
+          "pattern": "^images/[a-z0-9-]+\\.(jpg|jpeg|png|webp)$"
+        },
+        "ingredients": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/definitions/ligneIngredient" },
+          "description": "Au moins un ingrédient (« Ajoute au moins un ingrédient »)."
+        },
+        "totalKcal": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total du plat, arrondi à l'entier."
+        },
+        "kcalParPortion": {
+          "type": "integer",
+          "minimum": 0,
+          "description": "Total du plat ÷ portions, arrondi à l'entier."
+        },
+        "coordonnees": { "$ref": "#/definitions/coordonnees" },
+        "horaires": { "$ref": "#/definitions/horaires" }
+      }
+    },
+
+    "ligneIngredient": {
+      "type": "object",
+      "required": ["nom", "quantiteG", "kcalPour100g"],
+      "additionalProperties": false,
+      "properties": {
+        "nom": { "type": "string", "minLength": 2 },
+        "quantiteG": {
+          "type": "number",
+          "exclusiveMinimum": 0,
+          "description": "Quantité en grammes, strictement positive (quantité 0 refusée)."
+        },
+        "kcalPour100g": { "type": "number", "minimum": 0, "maximum": 900 }
+      }
+    },
+
+    "coordonnees": {
+      "type": "object",
+      "required": ["lat", "lng"],
+      "additionalProperties": false,
+      "description": "Position approximative en Suisse romande (bornes larges).",
+      "properties": {
+        "lat": { "type": "number", "minimum": 45.8, "maximum": 47.6 },
+        "lng": { "type": "number", "minimum": 5.9, "maximum": 7.7 }
+      }
+    },
+
+    "plage": {
+      "type": "object",
+      "required": ["debut", "fin"],
+      "additionalProperties": false,
+      "properties": {
+        "debut": { "$ref": "#/definitions/heure" },
+        "fin": { "$ref": "#/definitions/heure" }
+      }
+    },
+
+    "heure": {
+      "type": "string",
+      "pattern": "^([01][0-9]|2[0-3]):[0-5][0-9]$",
+      "description": "Heure au format HH:MM (24 h)."
+    },
+
+    "horaires": {
+      "type": "object",
+      "required": ["lundi", "mardi", "mercredi", "jeudi", "vendredi", "samedi", "dimanche"],
+      "additionalProperties": false,
+      "properties": {
+        "lundi": { "type": "array", "items": { "$ref": "#/definitions/plage" } },
+        "mardi": { "type": "array", "items": { "$ref": "#/definitions/plage" } },
+        "mercredi": { "type": "array", "items": { "$ref": "#/definitions/plage" } },
+        "jeudi": { "type": "array", "items": { "$ref": "#/definitions/plage" } },
+        "vendredi": { "type": "array", "items": { "$ref": "#/definitions/plage" } },
+        "samedi": { "type": "array", "items": { "$ref": "#/definitions/plage" } },
+        "dimanche": { "type": "array", "items": { "$ref": "#/definitions/plage" } }
+      }
+    }
+  }
+}

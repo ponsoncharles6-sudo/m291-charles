@@ -69,11 +69,13 @@ Un sélecteur d'ingrédients (recherche dans la liste fixe puis saisie de la qua
 
 | Champ | Type | Exemple |
 |---|---|---|
-| nom | texte | Tarte au sucre |
+| titre | texte | Tarte au sucre |
 | portions | nombre entier (≥ 1) | 8 |
-| ingrédients | liste de lignes (ingrédient + quantité en g) | voir ci-dessous |
+| ingredients | liste de lignes (nom + quantiteG + kcalPour100g) | voir ci-dessous |
 | totalKcal | nombre calculé | 2691 |
 | kcalParPortion | nombre calculé | 336 |
+
+Les recettes de départ sont stockées dans `data.json` avec quelques champs en plus (commune, description, prixMoyen, estVegetarien, tags, image). Le détail des champs et la validation sont décrits dans `data/README.md`.
 
 ### Exemple : « Tarte au sucre » (données inventées, valeurs approximatives)
 
@@ -120,6 +122,9 @@ Un sélecteur d'ingrédients (recherche dans la liste fixe puis saisie de la qua
 | Wireframe | `application/design/wireframes/` |
 | Propositions de design (IA) | `application/design/propositions/` |
 | Critique comparative | `application/design/critique.md` |
+| Base de recettes | `data.json` |
+| Schéma de validation | `data/schema.json` (documentation : `data/README.md`) |
+| Données avancées (coordonnées, horaires) | `data/data-avance.json` |
 
 ---
 
