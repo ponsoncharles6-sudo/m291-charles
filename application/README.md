@@ -6,7 +6,7 @@ Dossier principal de l'application.
 
 ## Le site
 
-Le site Ponson Cuisson est à la racine du dossier, en HTML, CSS et JavaScript classiques :
+Le site Ponson Cuisson est à la racine du dépôt, en HTML, CSS et JavaScript classiques :
 
 | Fichier | Rôle |
 |---|---|
