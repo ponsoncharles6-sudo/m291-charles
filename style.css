@@ -1,0 +1,284 @@
+/* Ponson Cuisson — style « Énergie » (voir application/design/critique.md) */
+
+/* ---------- Couleurs ---------- */
+:root {
+  --fond: #101216;
+  --carte: #1A1D23;
+  --bord: #272B33;
+  --vert: #C6FF3D;
+  --texte: #F2F4F0;
+  --gris: #8A9088;
+  --rouge: #FF8A80;
+}
+
+/* ---------- Base ---------- */
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  background: #0B0C0F;
+  color: var(--texte);
+  font-family: "Inter", Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+h1, h2, p { margin: 0; }
+button, input { font: inherit; color: inherit; }
+[hidden] { display: none !important; }
+
+/* L'application fait la largeur d'un téléphone, centrée sur ordinateur */
+.app {
+  max-width: 480px;
+  min-height: 100vh;
+  margin: 0 auto;
+  background: var(--fond);
+}
+
+.ecran {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* ---------- En-tête ---------- */
+.entete {
+  position: sticky;
+  top: 0;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 20px;
+  background: var(--fond);
+  border-bottom: 2px solid var(--vert);
+}
+
+.entete h1 {
+  font-size: 22px;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+.entete h1.nom-recette { text-transform: none; }
+
+.retour {
+  width: 44px;
+  height: 44px;
+  margin-left: -10px;
+  border: none;
+  border-radius: 8px;
+  background: none;
+  font-size: 24px;
+  cursor: pointer;
+}
+
+.retour:hover { background: var(--carte); }
+
+/* ---------- Contenu et barre du bas ---------- */
+.contenu {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: 20px;
+}
+
+.actions {
+  position: sticky;
+  bottom: 0;
+  padding: 16px 20px;
+  background: var(--fond);
+}
+
+/* ---------- Boutons ---------- */
+.bouton,
+.bouton-contour {
+  width: 100%;
+  min-height: 56px;
+  border-radius: 8px;
+  font-size: 17px;
+  font-weight: 800;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.bouton { border: none; background: var(--vert); color: var(--fond); }
+.bouton:disabled { background: var(--bord); color: var(--gris); cursor: not-allowed; }
+
+.bouton-contour { border: 2px solid var(--vert); background: none; color: var(--vert); }
+
+.bouton-pointille {
+  min-height: 52px;
+  border: 2px dashed var(--vert);
+  border-radius: 8px;
+  background: none;
+  color: var(--vert);
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.lien-danger {
+  align-self: flex-start;
+  border: none;
+  background: none;
+  color: var(--rouge);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ---------- Champs ---------- */
+.champ {
+  width: 100%;
+  min-height: 52px;
+  padding: 12px 14px;
+  border: 1px solid var(--bord);
+  border-radius: 8px;
+  background: var(--carte);
+  font-size: 17px;
+}
+
+.champ:focus { outline: none; border-color: var(--vert); }
+.champ.invalide { border-color: var(--rouge); }
+.champ-court { max-width: 140px; }
+.champ-quantite { max-width: 200px; font-size: 26px; font-weight: 700; }
+
+.etiquette { margin-bottom: -8px; color: var(--gris); font-size: 14px; }
+.erreur { color: var(--rouge); font-size: 15px; }
+
+.case { display: flex; align-items: center; gap: 8px; cursor: pointer; }
+.case input { width: 20px; height: 20px; accent-color: var(--vert); }
+
+/* ---------- Listes ---------- */
+.liste {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+/* Carte d'une recette dans la liste */
+.recette {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 14px 16px;
+  border: 1px solid var(--bord);
+  border-radius: 8px;
+  background: var(--carte);
+  cursor: pointer;
+}
+
+.recette:hover { border-color: var(--gris); }
+.recette .titre { font-size: 18px; font-weight: 800; }
+.recette .kcal { color: var(--gris); }
+.recette .kcal b { color: var(--vert); font-size: 18px; }
+.recette .meta { color: var(--gris); font-size: 14px; }
+.recette .fleche { color: var(--gris); font-size: 26px; }
+
+/* Ligne d'ingrédient (création, sélecteur, fiche) */
+.ligne {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
+  min-height: 52px;
+  padding: 10px 16px;
+  border: 1px solid var(--bord);
+  border-radius: 8px;
+  background: var(--carte);
+}
+
+.ligne .detail { color: var(--gris); white-space: nowrap; }
+.ligne .detail b { color: var(--texte); }
+.ligne.cliquable { cursor: pointer; }
+.ligne.cliquable:hover { border-color: var(--vert); }
+
+.supprimer {
+  border: none;
+  background: none;
+  color: var(--gris);
+  font-size: 22px;
+  cursor: pointer;
+}
+
+.supprimer:hover { color: var(--rouge); }
+
+.vide {
+  padding: 24px;
+  border: 1px dashed var(--bord);
+  border-radius: 8px;
+  color: var(--gris);
+  text-align: center;
+}
+
+/* ---------- Bloc des totaux (création) ---------- */
+.totaux {
+  padding: 16px 20px;
+  border-radius: 8px;
+  background: var(--vert);
+  color: var(--fond);
+}
+
+.totaux p { display: flex; justify-content: space-between; align-items: baseline; }
+.grand-total { font-size: 19px; font-weight: 700; }
+.grand-total strong { font-size: 32px; font-weight: 800; }
+
+/* ---------- Fiche recette ---------- */
+.bloc-resultat {
+  padding: 24px 16px;
+  border-radius: 8px;
+  background: var(--vert);
+  color: var(--fond);
+  text-align: center;
+}
+
+.resultat-chiffre { font-size: 72px; font-weight: 800; line-height: 1; }
+.resultat-unite { font-size: 26px; font-weight: 700; }
+.resultat-label { margin-top: 6px; text-transform: uppercase; letter-spacing: 3px; }
+.resultat-total { margin-top: 8px; font-size: 15px; }
+
+/* ---------- Partage ---------- */
+.carte {
+  padding: 16px;
+  border: 1px solid var(--bord);
+  border-radius: 8px;
+  background: var(--carte);
+}
+
+.apercu-titre { font-size: 20px; font-weight: 800; }
+.apercu-kcal { color: var(--vert); font-size: 22px; font-weight: 800; }
+
+.option {
+  display: flex;
+  align-items: center;
+  min-height: 56px;
+  padding: 10px 16px;
+  border: 1px solid var(--bord);
+  border-radius: 8px;
+  background: var(--carte);
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.option:hover { border-color: var(--vert); }
+
+.confirmation {
+  padding: 16px;
+  border-radius: 8px;
+  background: var(--vert);
+  color: var(--fond);
+  font-weight: 800;
+  text-align: center;
+}
+
+/* ---------- Petits utilitaires ---------- */
+.sous-titre { color: var(--gris); font-size: 15px; font-weight: 800; text-transform: uppercase; letter-spacing: 1px; }
+.gris { color: var(--gris); }
+.vert { color: var(--vert); }
+.petit { font-size: 14px; }
+
+/* Les chiffres gardent la même largeur : les totaux ne « sautent » pas */
+.kcal, .detail, .totaux, .resultat-chiffre, .apercu-kcal { font-variant-numeric: tabular-nums; }

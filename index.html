@@ -2,24 +2,156 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-  <meta name="description" content="Ponson Cuisson : calcule les calories de tes plats, par portion, et partage la fiche.">
-  <meta name="theme-color" content="#101216">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Ponson Cuisson</title>
-  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='6' fill='%23101216'/%3E%3Ctext x='16' y='22' font-family='Arial' font-weight='700' font-size='16' text-anchor='middle' fill='%23C6FF3D'%3EPC%3C/text%3E%3C/svg%3E">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;700;800&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div id="app" class="app">
-    <p class="chargement">Chargement des recettes…</p>
+  <div class="app">
+
+    <!-- ===================== Écran 1 : Liste des recettes ===================== -->
+    <section id="ecran-liste" class="ecran">
+      <header class="entete">
+        <h1>Mes recettes</h1>
+      </header>
+
+      <main class="contenu">
+        <input id="recherche" class="champ" type="search" placeholder="Rechercher une recette…" aria-label="Rechercher une recette">
+
+        <label class="case">
+          <input id="filtre-vegetarien" type="checkbox"> Végétarien seulement
+        </label>
+
+        <p id="compteur" class="gris"></p>
+        <ul id="liste-recettes" class="liste"></ul>
+        <p id="message-liste" class="vide" hidden></p>
+      </main>
+
+      <footer class="actions">
+        <button id="btn-nouvelle" class="bouton" type="button">+ Nouvelle recette</button>
+      </footer>
+    </section>
+
+    <!-- ===================== Écran 2 : Création / calcul ===================== -->
+    <section id="ecran-creation" class="ecran" hidden>
+      <header class="entete">
+        <button id="btn-annuler" class="retour" type="button" aria-label="Annuler">←</button>
+        <h1>Nouvelle recette</h1>
+      </header>
+
+      <main class="contenu">
+        <label class="etiquette" for="nom">Nom</label>
+        <input id="nom" class="champ" type="text" maxlength="60" placeholder="Ex. Tarte au sucre">
+        <p id="erreur-nom" class="erreur" hidden>Donne un nom à la recette.</p>
+
+        <label class="etiquette" for="portions">Portions</label>
+        <input id="portions" class="champ champ-court" type="number" min="1" step="1" inputmode="numeric" placeholder="1">
+        <p id="erreur-portions" class="erreur" hidden>Indique au moins 1 portion.</p>
+
+        <h2 class="sous-titre">Ingrédients</h2>
+        <ul id="liste-ingredients" class="liste"></ul>
+        <button id="btn-ajouter" class="bouton-pointille" type="button">+ Ajouter un ingrédient</button>
+
+        <div class="totaux">
+          <p class="petit-total">Total du plat <strong id="total-plat">0 kcal</strong></p>
+          <p class="grand-total">Par portion <strong id="total-portion">—</strong></p>
+        </div>
+        <p id="erreur-ingredients" class="erreur">Ajoute au moins un ingrédient.</p>
+      </main>
+
+      <footer class="actions">
+        <button id="btn-enregistrer" class="bouton" type="button" disabled>Enregistrer</button>
+      </footer>
+    </section>
+
+    <!-- ===================== Écran 2b : Sélecteur d'ingrédients ===================== -->
+    <section id="ecran-ingredient" class="ecran" hidden>
+      <header class="entete">
+        <button id="btn-retour-ingredient" class="retour" type="button" aria-label="Retour">←</button>
+        <h1>Ajouter un ingrédient</h1>
+      </header>
+
+      <main class="contenu">
+        <!-- Étape 1 : choisir l'ingrédient -->
+        <div id="etape-choix">
+          <input id="recherche-ingredient" class="champ" type="search" placeholder="Rechercher un ingrédient…" aria-label="Rechercher un ingrédient">
+          <ul id="liste-choix" class="liste"></ul>
+          <p id="message-choix" class="vide" hidden>Aucun ingrédient trouvé</p>
+        </div>
+
+        <!-- Étape 2 : indiquer la quantité -->
+        <div id="etape-quantite" hidden>
+          <p class="carte"><strong id="ingredient-choisi"></strong> <span id="ingredient-kcal" class="gris"></span></p>
+          <label class="etiquette" for="quantite">Quantité (g)</label>
+          <input id="quantite" class="champ champ-quantite" type="number" min="1" inputmode="decimal" placeholder="0">
+          <p id="erreur-quantite" class="erreur" hidden>Indique une quantité plus grande que 0.</p>
+          <p id="apercu-kcal" class="apercu-kcal"></p>
+          <button id="btn-valider" class="bouton" type="button">Valider</button>
+        </div>
+      </main>
+    </section>
+
+    <!-- ===================== Écran 3 : Fiche recette ===================== -->
+    <section id="ecran-fiche" class="ecran" hidden>
+      <header class="entete">
+        <button class="retour btn-liste" type="button" aria-label="Retour à la liste">←</button>
+        <h1 id="fiche-titre" class="nom-recette"></h1>
+      </header>
+
+      <main class="contenu">
+        <div class="bloc-resultat">
+          <p><span id="fiche-portion" class="resultat-chiffre"></span> <span class="resultat-unite">kcal</span></p>
+          <p class="resultat-label">Par portion</p>
+          <p id="fiche-total" class="resultat-total"></p>
+        </div>
+        <p id="fiche-description"></p>
+        <p id="fiche-infos" class="gris"></p>
+
+        <h2 class="sous-titre">Ingrédients</h2>
+        <ul id="fiche-ingredients" class="liste"></ul>
+        <button id="btn-supprimer" class="lien-danger" type="button" hidden>Supprimer cette recette</button>
+      </main>
+
+      <footer class="actions">
+        <button id="btn-partager" class="bouton" type="button">Partager la fiche</button>
+      </footer>
+    </section>
+
+    <!-- ===================== Écran 4 : Partage ===================== -->
+    <section id="ecran-partage" class="ecran" hidden>
+      <header class="entete">
+        <button id="btn-retour-fiche" class="retour" type="button" aria-label="Retour à la fiche">←</button>
+        <h1>Partager</h1>
+      </header>
+
+      <main class="contenu">
+        <div class="carte">
+          <p class="gris petit">Aperçu de la fiche</p>
+          <p id="apercu-titre" class="apercu-titre"></p>
+          <p><b id="apercu-portion" class="vert"></b> par portion</p>
+          <p id="apercu-total" class="gris petit"></p>
+        </div>
+
+        <h2 class="sous-titre">Envoyer via</h2>
+        <button id="btn-messagerie" class="option" type="button">Messagerie</button>
+        <a id="lien-email" class="option" href="#">E-mail</a>
+        <button id="btn-copier" class="option" type="button">Copier le texte</button>
+
+        <p id="confirmation" class="confirmation" hidden></p>
+      </main>
+
+      <footer class="actions">
+        <button class="bouton-contour btn-liste" type="button">Retour à la liste</button>
+      </footer>
+    </section>
+
   </div>
-  <noscript>
-    <p class="chargement">Ponson Cuisson a besoin de JavaScript pour fonctionner.</p>
-  </noscript>
-  <script src="js/donnees.js"></script>
-  <script src="js/app.js"></script>
+
+  <!-- data.js contient les recettes (copie de data.json), script.js fait fonctionner le site -->
+  <script src="data.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>

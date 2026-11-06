@@ -1,9 +1,6 @@
-/*
- * Copie de data.json, pour que le site marche aussi en ouvrant index.html par un double-clic
- * (le navigateur bloque alors la lecture de data.json).
- * Si tu modifies data.json, recopie son contenu ici, après « window.RECETTES_DEPART = ».
- */
-window.RECETTES_DEPART = [
+// Copie de data.json pour que le site marche en ouvrant index.html par un double-clic.
+// Si tu modifies data.json, recopie son contenu ici après « const RECETTES = ».
+const RECETTES = [
   {
     "id": 1,
     "titre": "Tarte au sucre",
