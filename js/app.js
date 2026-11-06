@@ -272,13 +272,10 @@ function vueListe() {
 }
 
 function blocErreurChargement() {
-  const local = location.protocol === 'file:';
   return `
     <div class="alerte" role="alert">
-      <strong>Impossible de charger data.json.</strong>
-      <p>${local
-        ? "Le navigateur bloque la lecture de data.json quand on ouvre index.html par un double-clic. Ouvre le dossier dans VS Code et lance « Live Server » (ou utilise la version en ligne sur GitHub Pages)."
-        : 'Vérifie que data.json est bien à côté de index.html et que sa syntaxe est valide.'}</p>
+      <strong>Impossible de charger les recettes.</strong>
+      <p>Vérifie que data.json et js/donnees.js sont bien présents à côté de index.html et que leur syntaxe est valide.</p>
     </div>`;
 }
 
@@ -793,17 +790,36 @@ app.addEventListener('keydown', (event) => {
    Démarrage
    ========================================================== */
 
+/**
+ * Recettes de départ :
+ * - site servi par un serveur (Live Server, GitHub Pages) : lecture de data.json ;
+ * - index.html ouvert par un double-clic (file://) : le navigateur bloque fetch,
+ *   on utilise la copie js/donnees.js (window.RECETTES_DEPART).
+ */
+async function chargerRecettesDepart() {
+  const copie = Array.isArray(window.RECETTES_DEPART) ? window.RECETTES_DEPART : null;
+  if (location.protocol !== 'file:') {
+    try {
+      const reponse = await fetch('data.json');
+      if (!reponse.ok) throw new Error('HTTP ' + reponse.status);
+      const donnees = await reponse.json();
+      if (!Array.isArray(donnees)) throw new Error('data.json doit contenir un tableau de recettes');
+      return donnees;
+    } catch (e) {
+      console.warn('data.json illisible, utilisation de js/donnees.js :', e);
+    }
+  }
+  if (copie) return copie;
+  throw new Error('Aucune recette trouvée (data.json et js/donnees.js)');
+}
+
 async function demarrer() {
   etat.mesRecettes = chargerMesRecettes();
   try {
-    const reponse = await fetch('data.json');
-    if (!reponse.ok) throw new Error('HTTP ' + reponse.status);
-    const donnees = await reponse.json();
-    if (!Array.isArray(donnees)) throw new Error('data.json doit contenir un tableau de recettes');
-    etat.recettesDepart = donnees;
+    etat.recettesDepart = await chargerRecettesDepart();
   } catch (e) {
     etat.erreurChargement = e;
-    console.error('Chargement de data.json impossible :', e);
+    console.error(e);
   }
   construireListeIngredients();
   window.addEventListener('hashchange', afficher);
