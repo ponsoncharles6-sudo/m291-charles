@@ -1,0 +1,426 @@
+/* Ponson Cuisson — direction artistique « Énergie » (application/design/critique.md) */
+
+:root {
+  --fond: #101216;
+  --carte: #1A1D23;
+  --bord: #272B33;
+  --accent: #C6FF3D;
+  --texte: #F2F4F0;
+  --gris: #8A9088;
+  --erreur: #FF8A80;
+  --hors-app: #0B0C0F;
+  --rayon: 8px;
+  --police: "Inter", system-ui, -apple-system, "Segoe UI", Roboto, Arial, sans-serif;
+}
+
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html { -webkit-text-size-adjust: 100%; }
+
+body {
+  margin: 0;
+  background: var(--hors-app);
+  color: var(--texte);
+  font-family: var(--police);
+  font-size: 16px;
+  line-height: 1.45;
+}
+
+/* Chiffres à largeur fixe : les totaux ne « sautent » pas à chaque ajout */
+.kcal, .detail, .totaux, .resultat-chiffre, .resultat-total, .apercu-kcal, .champ-quantite, #compteur {
+  font-variant-numeric: tabular-nums;
+}
+
+button, input, select { font: inherit; color: inherit; }
+a { color: inherit; }
+h1, h2, p { margin: 0; }
+
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 2px; }
+
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ---------- Cadre de l'application ---------- */
+
+.app {
+  max-width: 480px;
+  min-height: 100vh;
+  min-height: 100dvh;
+  margin: 0 auto;
+  background: var(--fond);
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 520px) {
+  .app { border-left: 1px solid var(--bord); border-right: 1px solid var(--bord); }
+}
+
+.chargement { padding: 2rem 1.25rem; color: var(--gris); }
+
+.entete {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  min-height: 64px;
+  padding: .75rem 1.25rem;
+  background: var(--fond);
+  border-bottom: 2px solid var(--accent);
+}
+
+.entete h1 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .01em;
+  line-height: 1.15;
+  overflow-wrap: anywhere;
+}
+
+.entete h1.nom-recette { text-transform: none; }
+.entete h1:focus { outline: none; }
+
+.retour {
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin-left: -.6rem;
+  border: 0;
+  border-radius: var(--rayon);
+  background: transparent;
+  font-size: 1.5rem;
+  line-height: 1;
+  text-decoration: none;
+  cursor: pointer;
+}
+.retour:hover { background: var(--carte); }
+
+.contenu {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1.25rem;
+}
+
+.actions {
+  position: sticky;
+  bottom: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  gap: .6rem;
+  padding: 1rem 1.25rem calc(1rem + env(safe-area-inset-bottom));
+  background: linear-gradient(to top, var(--fond) 75%, rgba(16, 18, 22, 0));
+}
+
+/* ---------- Boutons ---------- */
+
+.bouton,
+.bouton-contour {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  min-height: 56px;
+  padding: .75rem 1rem;
+  border-radius: var(--rayon);
+  font-weight: 800;
+  font-size: 1.05rem;
+  text-transform: uppercase;
+  text-decoration: none;
+  letter-spacing: .01em;
+  cursor: pointer;
+}
+
+.bouton { border: 0; background: var(--accent); color: var(--fond); }
+.bouton:hover { filter: brightness(1.06); }
+.bouton:disabled { background: var(--bord); color: var(--gris); cursor: not-allowed; filter: none; }
+
+.bouton-contour { border: 2px solid var(--accent); background: transparent; color: var(--accent); }
+.bouton-contour:hover { background: rgba(198, 255, 61, .08); }
+
+.bouton-pointille {
+  width: 100%;
+  min-height: 52px;
+  border: 2px dashed var(--accent);
+  border-radius: var(--rayon);
+  background: transparent;
+  color: var(--accent);
+  font-weight: 700;
+  cursor: pointer;
+}
+.bouton-pointille:hover { background: rgba(198, 255, 61, .06); }
+
+.lien-danger {
+  align-self: flex-start;
+  padding: .5rem 0;
+  border: 0;
+  background: transparent;
+  color: var(--erreur);
+  text-decoration: underline;
+  cursor: pointer;
+}
+
+/* ---------- Champs ---------- */
+
+.groupe { display: flex; flex-direction: column; gap: .35rem; }
+.groupe label, .etiquette { color: var(--gris); font-size: .9rem; }
+
+.champ {
+  width: 100%;
+  min-height: 52px;
+  padding: .7rem .9rem;
+  border: 1px solid var(--bord);
+  border-radius: var(--rayon);
+  background: var(--carte);
+  font-size: 1.05rem;
+}
+.champ::placeholder { color: var(--gris); opacity: 1; }
+.champ:focus { outline: none; border-color: var(--accent); }
+.champ[aria-invalid="true"] { border-color: var(--erreur); }
+.champ-court { max-width: 9rem; }
+
+.select {
+  min-height: 40px;
+  padding: .3rem .5rem;
+  border: 1px solid var(--bord);
+  border-radius: var(--rayon);
+  background: var(--carte);
+}
+
+.erreur { color: var(--erreur); font-size: .92rem; font-weight: 500; }
+.erreur[hidden] { display: none; }
+
+/* ---------- Liste des recettes ---------- */
+
+.puces {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+.puce {
+  flex: none;
+  min-height: 38px;
+  padding: .4rem .85rem;
+  border: 1px solid var(--bord);
+  border-radius: 999px;
+  background: var(--carte);
+  font-size: .92rem;
+  cursor: pointer;
+}
+.puce[aria-pressed="true"] { border-color: var(--accent); background: var(--accent); color: var(--fond); font-weight: 700; }
+
+.ligne-tri {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  color: var(--gris);
+  font-size: .92rem;
+}
+.ligne-tri label { display: flex; align-items: center; gap: .4rem; }
+
+.liste { display: flex; flex-direction: column; gap: .75rem; margin: 0; padding: 0; list-style: none; }
+
+.carte-recette {
+  display: flex;
+  align-items: center;
+  gap: .75rem;
+  min-height: 84px;
+  padding: .9rem 1rem;
+  border: 1px solid var(--bord);
+  border-radius: var(--rayon);
+  background: var(--carte);
+  text-decoration: none;
+}
+.carte-recette:hover { border-color: var(--gris); }
+.carte-recette > span:first-child { flex: 1; display: flex; flex-direction: column; gap: .15rem; min-width: 0; }
+
+.titre-recette { font-size: 1.1rem; font-weight: 800; }
+.kcal { color: var(--gris); }
+.kcal b { color: var(--accent); font-size: 1.1rem; font-weight: 800; }
+.meta { color: var(--gris); font-size: .85rem; }
+.chevron { color: var(--gris); font-size: 1.6rem; line-height: 1; }
+
+.vide {
+  padding: 2rem 1rem;
+  border: 1px dashed var(--bord);
+  border-radius: var(--rayon);
+  color: var(--gris);
+  text-align: center;
+}
+.vide strong { display: block; margin-bottom: .25rem; color: var(--texte); }
+
+.alerte {
+  padding: 1rem;
+  border: 1px solid var(--erreur);
+  border-radius: var(--rayon);
+  background: rgba(255, 138, 128, .08);
+}
+.alerte strong { color: var(--erreur); }
+.alerte p { margin-top: .35rem; color: var(--texte); font-size: .95rem; }
+
+/* ---------- Création / calcul ---------- */
+
+.sous-titre {
+  margin-top: .25rem;
+  font-size: .95rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: .06em;
+  color: var(--gris);
+}
+
+.liste-ingredients { display: flex; flex-direction: column; gap: .5rem; margin: 0; padding: 0; list-style: none; }
+.liste-ingredients li { display: flex; gap: .5rem; }
+
+.ligne {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  min-height: 52px;
+  padding: .6rem 1rem;
+  border: 1px solid var(--bord);
+  border-radius: var(--rayon);
+  background: var(--carte);
+  text-align: left;
+}
+button.ligne { cursor: pointer; }
+button.ligne:hover { border-color: var(--gris); }
+.ligne .detail { color: var(--gris); white-space: nowrap; }
+.ligne .detail b { color: var(--texte); }
+
+.supprimer-ligne {
+  flex: none;
+  width: 52px;
+  border: 1px solid var(--bord);
+  border-radius: var(--rayon);
+  background: var(--carte);
+  color: var(--gris);
+  font-size: 1.3rem;
+  cursor: pointer;
+}
+.supprimer-ligne:hover { border-color: var(--erreur); color: var(--erreur); }
+
+.totaux {
+  display: flex;
+  flex-direction: column;
+  gap: .2rem;
+  padding: 1rem 1.25rem;
+  border-radius: var(--rayon);
+  background: var(--accent);
+  color: var(--fond);
+}
+.totaux div { display: flex; align-items: baseline; justify-content: space-between; gap: 1rem; }
+.totaux .petit-total { font-size: .95rem; }
+.totaux .petit-total strong { font-weight: 700; }
+.totaux .grand-total { font-size: 1.15rem; font-weight: 700; }
+.totaux .grand-total strong { font-size: 2rem; font-weight: 800; line-height: 1.1; }
+
+/* ---------- Sélecteur d'ingrédients ---------- */
+
+.choix-ingredient {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem;
+  width: 100%;
+  min-height: 56px;
+  padding: .6rem 1rem;
+  border: 1px solid var(--bord);
+  border-radius: var(--rayon);
+  background: var(--carte);
+  text-align: left;
+  cursor: pointer;
+}
+.choix-ingredient:hover { border-color: var(--accent); }
+.choix-ingredient span:last-child { color: var(--gris); white-space: nowrap; }
+
+.carte {
+  padding: 1rem;
+  border: 1px solid var(--bord);
+  border-radius: var(--rayon);
+  background: var(--carte);
+}
+
+.champ-quantite { font-size: 1.6rem; font-weight: 700; max-width: 12rem; }
+.apercu-kcal { font-size: 1.4rem; font-weight: 800; color: var(--accent); }
+
+/* ---------- Fiche recette ---------- */
+
+.bloc-resultat {
+  padding: 1.5rem 1rem;
+  border-radius: var(--rayon);
+  background: var(--accent);
+  color: var(--fond);
+  text-align: center;
+}
+.resultat-chiffre { font-size: 4.5rem; font-weight: 800; line-height: 1; letter-spacing: -.02em; }
+.resultat-unite { font-size: 1.6rem; font-weight: 700; }
+.resultat-label { margin-top: .4rem; font-size: 1rem; font-weight: 500; text-transform: uppercase; letter-spacing: .14em; }
+.resultat-total { margin-top: .5rem; font-size: .95rem; }
+
+.description { color: var(--texte); }
+.infos { display: flex; flex-wrap: wrap; gap: .4rem; }
+.info {
+  padding: .25rem .6rem;
+  border: 1px solid var(--bord);
+  border-radius: 999px;
+  color: var(--gris);
+  font-size: .85rem;
+}
+.info.vert { border-color: var(--accent); color: var(--accent); }
+
+/* ---------- Partage ---------- */
+
+.apercu-titre { margin: .2rem 0; font-size: 1.25rem; font-weight: 800; }
+.vert { color: var(--accent); }
+.gris { color: var(--gris); }
+.petit { font-size: .88rem; }
+
+.options { display: flex; flex-direction: column; gap: .6rem; }
+.option {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  min-height: 56px;
+  padding: .6rem 1rem;
+  border: 1px solid var(--bord);
+  border-radius: var(--rayon);
+  background: var(--carte);
+  text-align: left;
+  text-decoration: none;
+  cursor: pointer;
+}
+.option:hover { border-color: var(--accent); }
+
+.confirmation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 52px;
+  padding: .6rem 1rem;
+  border-radius: var(--rayon);
+  background: var(--accent);
+  color: var(--fond);
+  font-weight: 800;
+}
+.confirmation[hidden] { display: none; }
+
+@media (prefers-reduced-motion: no-preference) {
+  .confirmation:not([hidden]) { animation: apparition .2s ease-out; }
+  @keyframes apparition { from { opacity: 0; transform: translateY(4px); } }
+}

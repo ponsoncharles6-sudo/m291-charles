@@ -122,6 +122,7 @@ Les recettes de départ sont stockées dans `data.json` avec quelques champs en 
 | Wireframe | `application/design/wireframes/` |
 | Propositions de design (IA) | `application/design/propositions/` |
 | Critique comparative | `application/design/critique.md` |
+| Site (application) | `index.html`, `css/`, `js/` (mode d'emploi : `application/README.md`) |
 | Base de recettes | `data.json` |
 | Schéma de validation | `data/schema.json` (documentation : `data/README.md`) |
 | Données avancées (coordonnées, horaires) | `data/data-avance.json` |
