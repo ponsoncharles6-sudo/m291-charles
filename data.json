@@ -1,0 +1,101 @@
+[
+  {
+    "id": 1,
+    "titre": "Tarte au sucre",
+    "commune": "Payerne",
+    "description": "Tarte broyarde à la crème et au sucre, simple et économique pour le dessert de la semaine.",
+    "prixMoyen": 0.80,
+    "portions": 8,
+    "estVegetarien": true,
+    "tags": ["dessert", "four", "terroir"],
+    "image": "images/tarte-au-sucre.jpg",
+    "ingredients": [
+      { "nom": "Farine", "quantiteG": 250, "kcalPour100g": 364 },
+      { "nom": "Beurre", "quantiteG": 100, "kcalPour100g": 717 },
+      { "nom": "Sucre", "quantiteG": 120, "kcalPour100g": 387 },
+      { "nom": "Crème", "quantiteG": 200, "kcalPour100g": 300 }
+    ],
+    "totalKcal": 2691,
+    "kcalParPortion": 336
+  },
+  {
+    "id": 2,
+    "titre": "Pâtes au thon",
+    "commune": "Lausanne",
+    "description": "Plat de pâtes à la sauce tomate et au thon, prêt en vingt minutes.",
+    "prixMoyen": 2.50,
+    "portions": 2,
+    "estVegetarien": false,
+    "tags": ["rapide", "petit-budget", "proteines"],
+    "image": "images/pates-au-thon.jpg",
+    "ingredients": [
+      { "nom": "Pâtes", "quantiteG": 170, "kcalPour100g": 371 },
+      { "nom": "Thon au naturel", "quantiteG": 140, "kcalPour100g": 116 },
+      { "nom": "Tomates concassées", "quantiteG": 400, "kcalPour100g": 32 },
+      { "nom": "Oignon", "quantiteG": 75, "kcalPour100g": 40 },
+      { "nom": "Huile d'olive", "quantiteG": 10, "kcalPour100g": 884 }
+    ],
+    "totalKcal": 1040,
+    "kcalParPortion": 520
+  },
+  {
+    "id": 3,
+    "titre": "Salade de quinoa",
+    "commune": "Yverdon-les-Bains",
+    "description": "Salade froide au quinoa, concombre, tomate et feta, idéale pour la lunchbox.",
+    "prixMoyen": 3.20,
+    "portions": 2,
+    "estVegetarien": true,
+    "tags": ["salade", "lunchbox", "frais"],
+    "image": "images/salade-de-quinoa.jpg",
+    "ingredients": [
+      { "nom": "Quinoa", "quantiteG": 140, "kcalPour100g": 368 },
+      { "nom": "Concombre", "quantiteG": 150, "kcalPour100g": 15 },
+      { "nom": "Tomate", "quantiteG": 200, "kcalPour100g": 18 },
+      { "nom": "Feta", "quantiteG": 60, "kcalPour100g": 264 },
+      { "nom": "Huile d'olive", "quantiteG": 10, "kcalPour100g": 884 }
+    ],
+    "totalKcal": 820,
+    "kcalParPortion": 410
+  },
+  {
+    "id": 4,
+    "titre": "Papet vaudois",
+    "commune": "Moudon",
+    "description": "Poireaux et pommes de terre mijotés, servis avec une saucisse aux choux.",
+    "prixMoyen": 4.50,
+    "portions": 4,
+    "estVegetarien": false,
+    "tags": ["terroir", "hiver", "mijote"],
+    "image": "images/papet-vaudois.jpg",
+    "ingredients": [
+      { "nom": "Poireau", "quantiteG": 800, "kcalPour100g": 61 },
+      { "nom": "Pommes de terre", "quantiteG": 600, "kcalPour100g": 77 },
+      { "nom": "Saucisse aux choux", "quantiteG": 400, "kcalPour100g": 300 },
+      { "nom": "Crème", "quantiteG": 100, "kcalPour100g": 300 },
+      { "nom": "Vin blanc", "quantiteG": 100, "kcalPour100g": 82 }
+    ],
+    "totalKcal": 2532,
+    "kcalParPortion": 633
+  },
+  {
+    "id": 5,
+    "titre": "Fondue moitié-moitié",
+    "commune": "Fribourg",
+    "description": "Fondue au gruyère et au vacherin fribourgeois, à partager entre amis.",
+    "prixMoyen": 7.50,
+    "portions": 4,
+    "estVegetarien": true,
+    "tags": ["fromage", "hiver", "convivial"],
+    "image": "images/fondue-moitie-moitie.jpg",
+    "ingredients": [
+      { "nom": "Gruyère", "quantiteG": 400, "kcalPour100g": 413 },
+      { "nom": "Vacherin fribourgeois", "quantiteG": 400, "kcalPour100g": 360 },
+      { "nom": "Vin blanc", "quantiteG": 300, "kcalPour100g": 82 },
+      { "nom": "Pain", "quantiteG": 600, "kcalPour100g": 265 },
+      { "nom": "Ail", "quantiteG": 5, "kcalPour100g": 149 }
+    ],
+    "totalKcal": 4935,
+    "kcalParPortion": 1234
+  }
+]
