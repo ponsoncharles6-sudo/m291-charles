@@ -7,6 +7,7 @@ Ce dossier documente la base de recettes de l'application et la façon de la val
 | `../data.json` | Base officielle : 32 recettes (les 5 premières saisies à la main) | e3-2 |
 | `schema.json` | Schéma JSON Schema (draft-07) qui valide la structure des recettes | S10-AV1 |
 | `../.vscode/settings.json` | Branche le schéma sur les fichiers de données dans VS Code | S10-AV1 |
+| `data-avance.json` | Échantillon de 5 recettes enrichies (coordonnées GPS + horaires) | S10-AV2 |
 
 Toutes les recettes, quantités et prix sont **inventés** pour le projet. Les calories pour 100 g sont des valeurs moyennes approximatives.
 
@@ -32,6 +33,28 @@ Les quatre champs imposés par la fiche S10-AV1 (`id`, `titre`, `commune`, `prix
 Une ligne d'ingrédient contient `nom` (texte), `quantiteG` (nombre **strictement** positif : une quantité de 0 est refusée, comme dans le user flow) et `kcalPour100g` (nombre entre 0 et 900).
 
 `additionalProperties: false` interdit toute clé inconnue : une faute de frappe comme `prix` au lieu de `prixMoyen` est signalée tout de suite au lieu de faire planter l'application.
+
+## Données avancées (`data-avance.json`)
+
+Les 5 premières recettes reprennent tous les champs ci-dessus et ajoutent deux sous-objets, en vue d'une future carte des spécialités romandes et d'un planning de repas :
+
+```json
+"coordonnees": { "lat": 46.8219, "lng": 6.9383 },
+"horaires": {
+  "lundi": [],
+  "mardi": [],
+  "mercredi": [{ "debut": "16:00", "fin": "17:00" }],
+  "jeudi": [],
+  "vendredi": [],
+  "samedi": [],
+  "dimanche": [{ "debut": "15:00", "fin": "16:30" }]
+}
+```
+
+- `coordonnees` : position approximative du centre de la commune (`lat`, `lng` en degrés décimaux). Le schéma refuse une position hors de Suisse romande (latitude 45,8 à 47,6 ; longitude 5,9 à 7,7).
+- `horaires` : les 7 jours sont toujours présents ; chaque jour contient une liste de plages `{ "debut", "fin" }` au format `HH:MM`. Pour une recette, une plage indique quand le plat est prévu au menu (exemple de planning de Lucas, qui cuisine le dimanche pour plusieurs jours). Une liste vide veut dire que le plat n'est pas prévu ce jour-là.
+
+Ces deux champs sont facultatifs dans `schema.json` : `data.json` reste valide sans eux, mais s'ils sont présents, leur structure est contrôlée.
 
 ## Calcul des calories
 
