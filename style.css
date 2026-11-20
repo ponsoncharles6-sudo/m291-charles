@@ -158,8 +158,13 @@ button, input { font: inherit; color: inherit; }
   list-style: none;
 }
 
-/* Carte d'une recette dans la liste */
-.recette {
+/* Cartes des recettes, injectées par js/app.js dans #liste-cartes */
+.cartes-grille {
+  display: grid;
+  gap: 10px;
+}
+
+.carte {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -170,12 +175,52 @@ button, input { font: inherit; color: inherit; }
   cursor: pointer;
 }
 
-.recette:hover { border-color: var(--gris); }
-.recette .titre { font-size: 18px; font-weight: 800; }
-.recette .kcal { color: var(--gris); }
-.recette .kcal b { color: var(--vert); font-size: 18px; }
-.recette .meta { color: var(--gris); font-size: 14px; }
-.recette .fleche { color: var(--gris); font-size: 26px; }
+.carte:hover,
+.carte:focus { border-color: var(--gris); outline: none; }
+.carte h3 { margin: 0; font-size: 18px; font-weight: 800; }
+.carte p { margin: 0; }
+.carte .kcal { color: var(--gris); }
+.carte .kcal b { color: var(--vert); font-size: 18px; }
+.carte .commune { color: var(--gris); font-size: 14px; }
+.carte .fleche { color: var(--gris); font-size: 26px; }
+
+.badge {
+  display: inline-block;
+  margin-left: 4px;
+  padding: 1px 8px;
+  border: 1px solid var(--vert);
+  border-radius: 999px;
+  color: var(--vert);
+  font-size: 12px;
+}
+
+/* Les 4 états de la liste (fiche e3-3) */
+.etat-chargement,
+.etat-vide,
+.etat-erreur {
+  padding: 24px;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.etat-chargement { color: var(--gris); border: 1px solid var(--bord); }
+.etat-vide { color: var(--gris); border: 1px dashed var(--bord); }
+
+.etat-erreur {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  border: 1px solid var(--rouge);
+  background: rgba(255, 138, 128, 0.08);
+  text-align: left;
+}
+
+.etat-erreur strong { color: var(--rouge); }
+
+@media (prefers-reduced-motion: no-preference) {
+  .etat-chargement { animation: pulsation 1.2s ease-in-out infinite; }
+  @keyframes pulsation { 50% { opacity: 0.5; } }
+}
 
 /* Ligne d'ingrédient (création, sélecteur, fiche) */
 .ligne {
@@ -239,8 +284,8 @@ button, input { font: inherit; color: inherit; }
 .resultat-label { margin-top: 6px; text-transform: uppercase; letter-spacing: 3px; }
 .resultat-total { margin-top: 8px; font-size: 15px; }
 
-/* ---------- Partage ---------- */
-.carte {
+/* ---------- Encadrés (sélecteur, partage) ---------- */
+.encadre {
   padding: 16px;
   border: 1px solid var(--bord);
   border-radius: 8px;

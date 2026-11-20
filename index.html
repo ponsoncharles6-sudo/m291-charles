@@ -26,8 +26,9 @@
         </label>
 
         <p id="compteur" class="gris"></p>
-        <ul id="liste-recettes" class="liste"></ul>
-        <p id="message-liste" class="vide" hidden></p>
+        <section id="liste-cartes" class="cartes-grille">
+          <!-- Les cartes seront injectées ici par app.js -->
+        </section>
       </main>
 
       <footer class="actions">
@@ -84,7 +85,7 @@
 
         <!-- Étape 2 : indiquer la quantité -->
         <div id="etape-quantite" hidden>
-          <p class="carte"><strong id="ingredient-choisi"></strong> <span id="ingredient-kcal" class="gris"></span></p>
+          <p class="encadre"><strong id="ingredient-choisi"></strong> <span id="ingredient-kcal" class="gris"></span></p>
           <label class="etiquette" for="quantite">Quantité (g)</label>
           <input id="quantite" class="champ champ-quantite" type="number" min="1" inputmode="decimal" placeholder="0">
           <p id="erreur-quantite" class="erreur" hidden>Indique une quantité plus grande que 0.</p>
@@ -128,7 +129,7 @@
       </header>
 
       <main class="contenu">
-        <div class="carte">
+        <div class="encadre">
           <p class="gris petit">Aperçu de la fiche</p>
           <p id="apercu-titre" class="apercu-titre"></p>
           <p><b id="apercu-portion" class="vert"></b> par portion</p>
@@ -150,8 +151,6 @@
 
   </div>
 
-  <!-- data.js contient les recettes (copie de data.json), script.js fait fonctionner le site -->
-  <script src="data.js"></script>
-  <script src="script.js"></script>
+  <script src="js/app.js"></script>
 </body>
 </html>

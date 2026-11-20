@@ -4,15 +4,14 @@ Application web qui calcule les calories d'un plat à partir de ses ingrédients
 
 **Voir le site en ligne :** https://ponsoncharles6-sudo.github.io/m291-charles/
 
-Sur ordinateur, on peut aussi télécharger le dépôt et ouvrir `index.html` par un double-clic.
+Sur ordinateur, ouvrir le dossier dans VS Code et lancer `index.html` avec l'extension « Live Server » (le site lit `data.json` avec `fetch`, ce qui ne marche pas en double-clic).
 
 ## Organisation du dépôt
 
 | Emplacement | Contenu |
 |---|---|
-| `index.html`, `style.css`, `script.js` | Le site (HTML, CSS et JavaScript classiques) |
+| `index.html`, `style.css`, `js/app.js` | Le site (HTML, CSS et JavaScript, sans framework) |
 | `data.json` | Base de 32 recettes (fiche e3-2) |
-| `data.js` | Copie de `data.json`, pour que le site marche avec un double-clic |
 | `data/` | Schéma de validation (S10-AV1), données avancées (S10-AV2) et documentation |
 | `brief.md` | Spécification officielle de l'application |
 | `application/` | Conception : pitch, persona, user flow, wireframe, propositions de design et critique ; mode d'emploi du site |
